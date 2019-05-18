@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./list-todos.component.css']
 })
 export class ListTodosComponent implements OnInit {
-todo={
-  id: 1,
-  description: 'Learn to Dance'
-}
+  todos=[
+    {id:1, description:'Learn to dance'},
+    {id:2, description:'Become an expert at Angular'},
+    {id:3, description:'visit London'}
+  ]
+// todo={
+//   id: 1,
+//   description: 'Learn to Dance'
+// }
   constructor() { }
 
   ngOnInit() {
