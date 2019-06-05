@@ -28,11 +28,20 @@ data => this.todo =data
     }
   }
   saveTodo(){
+    if(this.id===-1){
+//createtodo
+this.todoService.createTodo('karrybee',this.todo).subscribe(
+  data=>{
+    console.log(data)
+    this.router.navigate(['todos'])
+  }
+)
+    }else{
     this.todoService.updateTodo('karrybee',this.id,this.todo).subscribe(
       data=>{
         console.log(data)
       this.router.navigate(['todos'])}
     )
-  }
+  }}
   
 }
