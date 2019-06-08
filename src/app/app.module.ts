@@ -33,7 +33,7 @@ import { HttpInterceterBasicAuthService } from './service/http/http-interceter-b
     AppRoutingModule, FormsModule
   ],
   providers: [
-    // {provide: HTTP_INTERCEPTORS,useClass: HttpInterceterBasicAuthService, multi: true}
+    {provide: HTTP_INTERCEPTORS,useClass: HttpInterceterBasicAuthService, multi: true}
   ],
   bootstrap: [AppComponent]
 })
