@@ -31,10 +31,11 @@ export class WelcomeDataService {
 return this.http.get<HelloWorldBean>(`http://localhost:8080/hello-world/path-variable/${name}`,
 {headers});
   }
+  
   createBasicAuthenticationHttpHeader(){
     let username='karrybee'
     let password='dummy'
-    let basicAuthHeaderString ='Basic' +window.btoa(username + ':' +password);
+    let basicAuthHeaderString ='Basic ' + window.btoa(username + ':' + password);
     return basicAuthHeaderString;
   }
 }
