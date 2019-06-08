@@ -1,6 +1,7 @@
+import { BasicAuthenticationService } from './../service/basic-authentication.service';
+import { HardcodedAuthenticationService } from './../service/hardcoded-authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { HardcodedAuthenticationService } from '../service/hardcoded-authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -8,27 +9,51 @@ import { HardcodedAuthenticationService } from '../service/hardcoded-authenticat
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-username = 'kbhalla22'
-password= 'dummy'
-errorMessage='Invalid Credentials'
-invalidLogin=false
 
-//Router
-//dependancy injection
+  username = 'in28minutes'
+  password = ''
+  errorMessage = 'Invalid Credentials'
+  invalidLogin = false
+
+  //Router
+  //Angular.giveMeRouter
+  //Dependency Injection
   constructor(private router: Router,
-    private hardcodedAuthenticationServices: HardcodedAuthenticationService) { }
+    private hardcodedAuthenticationService: HardcodedAuthenticationService,
+    private basicAuthenticationService: BasicAuthenticationService) { }
 
   ngOnInit() {
   }
 
-  handleLogin(){
-    //console.log(this.username);
-//if (this.username==='kbhalla22' && this.password===''){
-  if(this.hardcodedAuthenticationServices.authenticate(this.username,this.password)){
-  this.router.navigate(['welcome',this.username])
-  this.invalidLogin=false
-}else {
-  this.invalidLogin=true
-}
+  handleLogin() {
+    // console.log(this.username);
+    //if(this.username==="in28minutes" && this.password === 'dummy') {
+    if(this.hardcodedAuthenticationService.authenticate(this.username, this.password)) {
+      //Redirect to Welcome Page
+      this.router.navigate(['welcome', this.username])
+      this.invalidLogin = false
+    } else {
+      this.invalidLogin = true
+    }
   }
+
+  handleBasicAuthLogin() {
+    // console.log(this.username);
+    //if(this.username==="in28minutes" && this.password === 'dummy') {
+    this.basicAuthenticationService.executeAuthenticationService(this.username, this.password)
+        .subscribe(
+          data => {
+            console.log(data)
+            this.router.navigate(['welcome', this.username])
+            this.invalidLogin = false      
+          },
+          error => {
+            console.log(error)
+            this.invalidLogin = true
+          }
+        )
+  }
+
+  
+
 }
