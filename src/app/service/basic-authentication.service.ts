@@ -11,6 +11,21 @@ export const AUTHENTICATED_USER = 'authenticateUser';
 export class BasicAuthenticationService {
 
   constructor(private http: HttpClient) { }
+  executeJWTAuthenticationService(username,password){
+    
+   
+ return this.http.post<any>(`${API_URL}/authenticate`,{
+   username,password
+ }).pipe(
+  map(
+    data=>{
+      sessionStorage.setItem( AUTHENTICATED_USER,username);
+      sessionStorage.setItem(TOKEN,`Bearer ${data.token}`);
+      return data;
+    }
+  )
+);
+  }
   
   executeAuthenticationService(username,password){
     
@@ -19,10 +34,9 @@ export class BasicAuthenticationService {
     let headers=new HttpHeaders(
       {
         Authorization:basicAuthHeaderString
-      }
-    )
-return this.http.get<AuthenticationBean>(`${API_URL}/basicauth`,
-{headers}).pipe(
+      })
+ return this.http.get<AuthenticationBean>(`${API_URL}/basicauth`,
+ {headers}).pipe(
   map(
     data=>{
       sessionStorage.setItem( AUTHENTICATED_USER,username);
