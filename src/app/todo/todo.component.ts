@@ -22,22 +22,22 @@ export class TodoComponent implements OnInit {
     this.id=this.route.snapshot.params['id'];
     this.todo=new todo(this.id,'',false,new Date());
     if(this.id!=-1){
-    this.todoService.retrieveTodo('karrybee',this.id).subscribe(
+    this.todoService.retrieveTodo('in28minutes',this.id).subscribe(
 data => this.todo =data
     )
     }
   }
   saveTodo(){
-    if(this.id===-1){
+    if(this.id==-1){
 //createtodo
-this.todoService.createTodo('karrybee',this.todo).subscribe(
+this.todoService.createTodo('in28minutes',this.todo).subscribe(
   data=>{
     console.log(data)
     this.router.navigate(['todos'])
   }
 )
     }else{
-    this.todoService.updateTodo('karrybee',this.id,this.todo).subscribe(
+    this.todoService.updateTodo('in28minutes',this.id,this.todo).subscribe(
       data=>{
         console.log(data)
       this.router.navigate(['todos'])}
